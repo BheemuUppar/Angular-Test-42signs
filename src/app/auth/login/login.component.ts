@@ -22,7 +22,7 @@ export class LoginComponent {
     });
 
    if(localStorage.getItem('token')){
-     router.navigateByUrl('login');
+     router.navigateByUrl('home');
    }
   }
 
