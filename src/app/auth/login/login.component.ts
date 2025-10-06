@@ -20,6 +20,10 @@ export class LoginComponent {
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+   if(localStorage.getItem('token')){
+     router.navigateByUrl('login');
+   }
   }
 
   onSubmit() {
