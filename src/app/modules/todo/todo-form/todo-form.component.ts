@@ -28,7 +28,7 @@ export class TodoFormComponent implements OnInit{
 
   submit() {
     if (this.todoForm.valid) {
-      this.dialogRef.close(this.todoForm.value);
+      this.dialogRef.close({...this.todoForm.value, id:this.data?.id});
     }
   }
 

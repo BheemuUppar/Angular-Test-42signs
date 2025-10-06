@@ -31,7 +31,7 @@ export class TodoTableComponent implements OnChanges, OnInit {
   displayedColumns: string[] = ['id', 'title', 'description', 'isCompleted', 'action'];
   dataSource = new MatTableDataSource<Todo>([]);
   searchSubject = new Subject();
-  unsubscribe = new Subject();
+  
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
 
@@ -39,7 +39,7 @@ export class TodoTableComponent implements OnChanges, OnInit {
 
   }
   ngOnInit(): void {
-    this.searchSubject.pipe(  debounceTime(1000),takeUntil(this.unsubscribe)).subscribe((searchText :any)=>{
+    this.searchSubject.pipe(  debounceTime(1000),takeUntil(this.todoService.unsubscribe)).subscribe((searchText :any)=>{
      const filterValue = searchText;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     })
@@ -88,9 +88,9 @@ this.dataSource.paginator = this.paginator;
       console.log('New Todo:', result);
       this.todoService.addTodo(result).subscribe((res)=>{
           alert('todo added success')
+          this.todoService.todoChange.next(true)
       })
       // this.todos.push(result); // Push to your array or call API
-      
     }
   });
 }
@@ -105,7 +105,11 @@ editTodo(event :Event, row: Todo) {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      console.log('Updated Todo:', result);
+      // console.log('Updated Todo:', result);
+       this.todoService.updateTodo(result).subscribe((res)=>{
+          alert('todo updated success')
+          this.todoService.todoChange.next(true)
+      })
       // Object.assign(row, result); // Update the existing row or call API
       
     }
