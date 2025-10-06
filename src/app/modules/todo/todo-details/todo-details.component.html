@@ -1,0 +1,18 @@
+<div  class="container p-6">
+    <h2 class="text-xl font-bold mb-4">Todo Details</h2>
+    <div class="space-y-2">
+      <p><strong>ID:</strong> {{ data.id }}</p>
+      <p><strong>Title:</strong> {{ data.title }}</p>
+      <p><strong>Description:</strong> {{ data.description }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span [ngClass]="data.isCompleted ? 'text-green-600' : 'text-red-600'">
+          {{ data.isCompleted ? '✅ Completed' : '❌ Pending' }}
+        </span>
+      </p>
+    </div>
+    <div class="mt-4 flex justify-end">
+      <button mat-button (click)="close()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Close</button>
+    </div>
+
+</div>

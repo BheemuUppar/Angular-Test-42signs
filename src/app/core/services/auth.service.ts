@@ -15,4 +15,8 @@ export class AuthService {
     const payload = { email, password };
     return this.http.post(environment.login, payload);
   }
+
+  get getAccessToken(){
+  return localStorage.getItem('token')
+  }
 }

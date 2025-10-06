@@ -1,0 +1,29 @@
+<div class="p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">
+        {{ data ? 'Edit Todo' : 'Add Todo' }}
+      </h2>
+
+      <form [formGroup]="todoForm" (ngSubmit)="submit()">
+        <div class="mb-4">
+          <label class="block font-medium mb-1">Title</label>
+          <input formControlName="title" class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="mb-4">
+          <label class="block font-medium mb-1">Description</label>
+          <textarea formControlName="description" rows="3" class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <div class="mb-4 flex items-center space-x-2">
+          <input type="checkbox" formControlName="isCompleted" id="status" class="w-4 h-4"/>
+          <label for="status" class="font-medium">Completed</label>
+        </div>
+
+        <div class="flex justify-end space-x-2">
+          <button type="button" mat-button (click)="close()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">
+            {{ data ? 'Update' : 'Add' }}
+          </button>
+        </div>
+      </form>
+    </div>

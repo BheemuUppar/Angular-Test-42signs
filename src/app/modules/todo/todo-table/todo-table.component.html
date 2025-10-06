@@ -1,0 +1,78 @@
+<div class=" bg-gray-50 min-h-screen">
+  <h1 class="text-2xl font-bold mb-4 text-gray-800">Todos</h1>
+
+  <!-- Search Input -->
+  <div class="mb-4 flex justify-between">
+    <input
+      type="text"
+     
+      (input)="onSearch($event)"
+      placeholder="Search todos..."
+      class="w-full sm:w-1/2 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
+   <div> <button class="bg-blue-500 border border-blue-100 p-2 rounded text-white" (click)="addTodo($event)"> Add Todo</button>
+      </div>
+  </div>
+
+  <!-- Table Wrapper -->
+  <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-md max-h-[400px] overflow-y-auto bg-white">
+    <table mat-table [dataSource]="dataSource" class="min-w-full divide-y divide-gray-200">
+      
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th class="px-4 py-2 bg-gray-100 text-left sticky top-0 z-10" mat-header-cell *matHeaderCellDef> ID </th>
+        <td class="px-4 py-2" mat-cell *matCellDef="let todo"> {{ todo.id }} </td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th class="px-4 py-2 bg-gray-100 text-left sticky top-0 z-10" mat-header-cell *matHeaderCellDef> Title </th>
+        <td class="px-4 py-2" mat-cell *matCellDef="let todo"> {{ todo.title }} </td>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <th class="px-4 py-2 bg-gray-100 text-left sticky top-0 z-10" mat-header-cell *matHeaderCellDef> Description </th>
+        <td class="px-4 py-2" mat-cell *matCellDef="let todo"> {{ todo.description }} </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="isCompleted">
+        <th class="px-4 py-2 bg-gray-100 text-left sticky top-0 z-10" mat-header-cell *matHeaderCellDef> Status </th>
+        <td class="px-4 py-2" mat-cell *matCellDef="let todo">
+          <span [ngClass]="todo.isCompleted ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
+            {{ todo.isCompleted ? '✅ Done' : '❌ Pending' }}
+          </span>
+        </td>
+      </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th class="px-4 py-2 bg-gray-100 text-left sticky top-0 z-10" mat-header-cell *matHeaderCellDef> Action </th>
+        <td class="px-4 py-2" mat-cell *matCellDef="let todo">
+          <span class="">
+           <button class="bg-blue-600 rounded border-sky-500 p-1 text-white" (click)="editTodo($event, todo)">Edit</button>
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Header & Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-100"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="hover:bg-gray-100 transition-colors duration-200" (click)="onRowClick(row)"></tr>
+
+       <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter </td>
+  </tr>
+    </table>
+  </div>
+
+  <!-- Paginator -->
+  <div class="mt-4 flex justify-end">
+    <mat-paginator class="bg-gray-100"
+     
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>

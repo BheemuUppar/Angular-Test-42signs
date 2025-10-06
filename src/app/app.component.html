@@ -2,7 +2,12 @@
 
 <div class="flex min-h-screen">
   <app-sidebar></app-sidebar>
-  <div class="flex-1 p-6 bg-gray-100">
-    <router-outlet />
+  <div class="flex-1 ">
+    <nav class="w-full bg-red-100 ">
+      <button class="float-right">Logout</button>
+    </nav>
+    <div class="p-6 bg-gray-100 h-full">
+      <router-outlet />
+    </div>
   </div>
 </div>
