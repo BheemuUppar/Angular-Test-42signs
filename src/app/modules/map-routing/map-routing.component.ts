@@ -5,10 +5,11 @@ import * as L from 'leaflet';
 import { MapService } from './services/map.service';
 import { debounceTime, from, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
+import { FormatDurationPipe } from '../../core/pipes/durationFormate.pipe';
 // import('../../../assets/icons/from.png')
 @Component({
   selector: 'app-map-routing',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FormatDurationPipe],
   templateUrl: './map-routing.component.html',
   styleUrl: './map-routing.component.css'
 })
@@ -22,7 +23,7 @@ toSubject:Subject<any> = new  Subject();
   fromLocation: any;
   toLocation: any;
   routeLayer: any;
-   routeInfo: { distance?: number; duration?: number } = {};
+   routeInfo: any = undefined;
   fromMarker !: L.Marker<any> | null; 
   toMarker !: L.Marker<any> | null; 
   fromIcon = L.icon({
@@ -107,7 +108,7 @@ toSubject:Subject<any> = new  Subject();
 
         this.routeInfo = {
           distance: route.distance / 1000,
-          duration: route.duration / 60,
+          duration: route.duration ,
         };
         console.log(this.routeInfo)
     },
@@ -153,7 +154,8 @@ toSubject:Subject<any> = new  Subject();
     if (this.routeLayer) {
       this.map.removeLayer(this.routeLayer);
     }
-    this.routeLayer = undefined
+    this.routeLayer = undefined;
+    this.routeInfo = undefined
     this. fromSuggestions= [];
   this.toSuggestions = [];
   this.fromLocation = undefined;

@@ -1,20 +1,39 @@
-
 @if(!isLoginPage){
 
   <div class="flex min-h-screen">
-    <app-sidebar></app-sidebar>
-    <div class="flex-1 ">
-      <nav class="w-full bg-red-100 ">
-        <button class="float-right" (click)="logout()">Logout</button>
+    <!-- Sidebar -->
+     @if(sidebarOpen){
+       <app-sidebar class="w-64 bg-white shadow-md"></app-sidebar>
+     }
+  
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col">
+      <!-- Navbar -->
+      <nav class="w-full bg-red-100 flex justify-between items-center px-4 py-2 md:py-3">
+        <!-- <div class="flex items-center justify-between gap-2"> -->
+          <span (click)="sidebarOpen = !sidebarOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+         </svg>
+          </span>
+         <div class="flex items-center px-[5px]">
+          <a [routerLink]="'home'" > <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L1 11h3v9h6v-6h4v6h6v-9h3z" />
+          </svg></a>
+          <button class="px-3 py-1 bg-yellow-400 text-white rounded hover:bg-yellow-500" (click)="logout()">Logout</button>
+        </div>
+         <!-- </div> -->
       </nav>
-      <div class="p-6 bg-gray-100 h-full">
-        <router-outlet />
+  
+      <!-- Content -->
+      <div class="flex-1 p-4 md:p-6 bg-gray-100 overflow-auto">
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>
-} @else{
-  <div class="p-6 bg-gray-100 h-full">
-        <router-outlet />
-      </div>
 }
-
+@else {
+  <div class="p-4 md:p-6 bg-gray-100 min-h-screen">
+    <router-outlet></router-outlet>
+  </div>
+}

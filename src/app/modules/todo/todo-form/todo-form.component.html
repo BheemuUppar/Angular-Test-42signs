@@ -21,7 +21,7 @@
 
         <div class="flex justify-end space-x-2">
           <button type="button" mat-button (click)="close()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">Cancel</button>
-          <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">
+          <button type="submit" class="bg-blue-300 px-2 border rounded" [disabled]="todoForm.invalid">
             {{ data ? 'Update' : 'Add' }}
           </button>
         </div>
