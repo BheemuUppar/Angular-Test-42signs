@@ -7,7 +7,6 @@ import { debounceTime, from, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { FormatDurationPipe } from '../../core/pipes/durationFormate.pipe';
 import { FormatkmPipe } from '../../core/pipes/kmFormate.pipe';
-// import('../../../assets/icons/from.png')
 @Component({
   selector: 'app-map-routing',
   imports: [CommonModule, FormsModule, FormatDurationPipe,FormatkmPipe ],
@@ -85,9 +84,7 @@ toSubject:Subject<any> = new  Subject();
 
   onFromInput(event:any){
     this.fromSubject.next(event.target.value)
-//   this.mapService.searchLocation(event.target.value).subscribe({
- 
-// })
+
   }
   onToInput(event:any){
    this.toSubject.next(event.target.value);
@@ -146,16 +143,9 @@ toSubject:Subject<any> = new  Subject();
     this.fromLocation = selectedPlace;
     this.fromSuggestions = [];
      
-    // this.map.setView([selectedPlace.lat, selectedPlace.lon], 13);
-    // L.marker([selectedPlace.lat, selectedPlace.lon]).addTo(this.map).bindPopup('From').openPopup();
   }else{
     this.toLocation = selectedPlace;
     this.toSuggestions = [];
-    //  this.toMarker = L.marker([selectedPlace.lat, selectedPlace.lon], { icon: this.toIcon }).addTo(this.map);
-    //   this.toMarker.bindPopup('To: ' + selectedPlace.display_name).openPopup();
-    // this.map.setView([selectedPlace.lat, selectedPlace.lon], 13);
-    // L.marker([selectedPlace.lat, selectedPlace.lon]).addTo(this.map).bindPopup('To').openPopup();
-
   }
 
   }
@@ -168,8 +158,7 @@ toSubject:Subject<any> = new  Subject();
     this.routeInfo = undefined
     this. fromSuggestions= [];
   this.toSuggestions = [];
-  // this.fromLocation = undefined;
-  // this.toLocation = undefined;
+  
   // Remove markers
 if (this.fromMarker) {
   this.fromMarker.remove();

@@ -1,95 +1,3 @@
-// import { Component } from '@angular/core';
-// import { WeatherService } from './services/weather.service';
-// import { CommonModule } from '@angular/common';
-// import { debounceTime, pipe, Subject } from 'rxjs';
-
-// @Component({
-//   selector: 'app-weather',
-//   imports: [CommonModule],
-//   templateUrl: './weather.component.html',
-//   styleUrl: './weather.component.css',
-//   providers:[WeatherService]
-// })
-// export class WeatherComponent {
-//   currentCity :string = 'Bengaluru';
-//   lat !: number;
-//   lon !: number;
-//   currentWeather: any;
-//   forecastWeather !: { date: string; avgTemp: number; }[];
-//   searchSubject: Subject<string> = new Subject();
-// constructor(private weatherService:WeatherService){
-// // this.fetchGeoCordinates()
-// this.fetchWeather()
-// this.fetchForecast()
-
-// this.searchSubject.pipe(debounceTime(500)).subscribe(
-//   {
-//     next:(str)=>{
-//         this.currentCity = str;
-//         this.fetchWeather()
-//         this.fetchForecast()
-//     }
-//   }
-// )
-// }
-
-
-// onSearchChange(event:any){
-//   if(event.target.value != ''){
-//     this.searchSubject.next(event.target.value)
-//   }
-// }
-
-// fetchWeather(){
-//   this.weatherService.getWeatherByCity(this.currentCity).subscribe({
-//     next:(res)=>{
-//       this.currentWeather = res
-//       console.log(res)
-//     },
-//     error:(err)=>{
-//      alert('failed to fetch weather for location: "'+ this.currentCity+'"')
-//     }
-//   })
-// }
-
-//  dailyData: { [date: string]: number[] } = {};
-// fetchForecast(){
-//   this.weatherService.getForecast(this.currentCity).subscribe({
-//     next:(res)=>{
-//      this.groupIntoDaywise(res);
-//      this.forecastWeather = this.getForecast()
-//       // console.log(this.getForecast())
-//     },
-//     error:(err)=>{
-
-//     }
-//   })
-// }
-
-// groupIntoDaywise(res:any){
-//   res.list.forEach((item:any) => {
-//   const date = item.dt_txt.split(' ')[0];
-//   if (!this.dailyData[date]) this.dailyData[date] = [];
-//   this.dailyData[date].push(item.main.temp);
-// });
-// }
-
-// getForecast(){
-//   console.log(this.dailyData)
-//   const forecast4Days = Object.keys(this.dailyData)
-//   .slice(1, 5)   // Take only next 4 dates
-//   .map(date => {
-//     const temps = this.dailyData[date];
-//     // const avgTemp = temps.reduce((a, b) => a + b, 0) / temps.length;
-
-//     const avgTemp = temps.reduce((accTemp, currentTemp)=>{
-//       return accTemp + currentTemp
-//     } , 0) / temps.length
-//     return { date, avgTemp: Math.round(avgTemp) };
-//   });
-//   return forecast4Days
-// }
-// }
 
 
 import { Component } from '@angular/core';
@@ -174,8 +82,7 @@ export class WeatherComponent {
     error:()=>{
       this.error = true
       this.loading = false;
-      // this.currentWeather = undefined;
-      // this.forecastWeather = []
+    
     }});
   }
 

@@ -62,7 +62,6 @@ this.dataSource.paginator = this.paginator;
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
   }
 
   onRowClick(row : Todo){
@@ -90,7 +89,6 @@ this.dataSource.paginator = this.paginator;
           alert('todo added success')
           this.todoService.todoChange.next(true)
       })
-      // this.todos.push(result); // Push to your array or call API
     }
   });
 }
@@ -110,7 +108,6 @@ editTodo(event :Event, row: Todo) {
           alert('todo updated success')
           this.todoService.todoChange.next(true)
       })
-      // Object.assign(row, result); // Update the existing row or call API
       
     }
   });

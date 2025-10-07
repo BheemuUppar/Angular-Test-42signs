@@ -12,7 +12,6 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (error.status === 401) {
         alert('Unauthorized! Logging out...');
-        // router.navigate(['/login']);
         authSerice.logout()
 
       } else if (error.status === 403) {
