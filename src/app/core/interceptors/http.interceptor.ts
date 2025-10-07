@@ -23,6 +23,8 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
       } else if (error.status >= 500) {
         // alert('Server error occurred.');
         snackbarService.error('Server error occurred.')
+      }else{
+        snackbarService.error(error.error.message)
       }
 
       return throwError(() => error);

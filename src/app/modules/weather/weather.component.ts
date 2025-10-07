@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from './services/weather.service';
 import { Subject, debounceTime, forkJoin, catchError, of, tap } from 'rxjs';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-weather',
@@ -22,7 +23,7 @@ export class WeatherComponent {
   error = false;
   searchSubject = new Subject<string>();
 
-  constructor(private weatherService: WeatherService) {
+  constructor(private weatherService: WeatherService, private snackbarService:SnackbarService) {
     // initial load
     this.fetchAllData(this.currentCity);
 
@@ -79,10 +80,10 @@ export class WeatherComponent {
       .subscribe({next:()=>{
      
       },
-    error:()=>{
+    error:(err)=>{
       this.error = true
       this.loading = false;
-    
+      this.snackbarService.error(err.error.message)
     }});
   }
 

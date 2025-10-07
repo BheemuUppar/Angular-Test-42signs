@@ -7,11 +7,13 @@ import { debounceTime, from, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { FormatDurationPipe } from '../../core/pipes/durationFormate.pipe';
 import { FormatkmPipe } from '../../core/pipes/kmFormate.pipe';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 @Component({
   selector: 'app-map-routing',
   imports: [CommonModule, FormsModule, FormatDurationPipe,FormatkmPipe ],
   templateUrl: './map-routing.component.html',
-  styleUrl: './map-routing.component.css'
+  styleUrl: './map-routing.component.css',
+  providers:[SnackbarService]
 })
 export class MapRoutingComponent implements AfterViewInit , OnInit{
   map: any;
@@ -39,7 +41,7 @@ toSubject:Subject<any> = new  Subject();
   popupAnchor: [0, -32]             // point from which the popup should open relative to the iconAnchor
 });
 
-  constructor(private mapService:MapService) {
+  constructor(private mapService:MapService, private snackbarService:SnackbarService) {
 
   }
 
@@ -118,10 +120,10 @@ toSubject:Subject<any> = new  Subject();
           distance: route.distance ,
           duration: route.duration ,
         };
-        console.log(this.routeInfo)
+        // console.log(this.routeInfo)
     },
     error:(err)=>{
-      
+      this.snackbarService.error('Failed fetch route')
     }
    })
   }

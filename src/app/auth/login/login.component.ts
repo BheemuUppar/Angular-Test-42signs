@@ -39,8 +39,7 @@ export class LoginComponent {
             console.log(res)
         },
         error:(err)=>{
-  alert('Login failed!');
-  console.log(err)
+   this.snackbarService.error(err.error.message)
         }
       })
     

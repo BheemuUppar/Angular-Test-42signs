@@ -43,7 +43,7 @@ export class TodoComponent implements OnInit, OnDestroy {
    
     },
     error:(err)=>{
-   console.log(err)
+     this.snackbarService.error("Failed to fetch todos")
     }
   })
  }
