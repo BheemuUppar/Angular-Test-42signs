@@ -6,10 +6,11 @@ import { MapService } from './services/map.service';
 import { debounceTime, from, Subject, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { FormatDurationPipe } from '../../core/pipes/durationFormate.pipe';
+import { FormatkmPipe } from '../../core/pipes/kmFormate.pipe';
 // import('../../../assets/icons/from.png')
 @Component({
   selector: 'app-map-routing',
-  imports: [CommonModule, FormsModule, FormatDurationPipe],
+  imports: [CommonModule, FormsModule, FormatDurationPipe,FormatkmPipe ],
   templateUrl: './map-routing.component.html',
   styleUrl: './map-routing.component.css'
 })
@@ -89,11 +90,18 @@ toSubject:Subject<any> = new  Subject();
 // })
   }
   onToInput(event:any){
-   this.toSubject.next(event.target.value)
+   this.toSubject.next(event.target.value);
+   
   }
 
   getRoute(){
   // console.log(this.fromLocation , this.toLocation)
+  this.routeLayer = undefined;
+    this.routeInfo = undefined
+    this. fromSuggestions= [];
+  this.toSuggestions = [];
+ 
+
   if (this.routeLayer) {
       this.map.removeLayer(this.routeLayer);
     }
@@ -105,7 +113,10 @@ toSubject:Subject<any> = new  Subject();
         const coords = route.geometry.coordinates.map((c: any) => [c[1], c[0]]); // flip lng,lat
         this.routeLayer = L.polyline(coords, { color: 'blue', weight: 4 }).addTo(this.map);
         this.map.fitBounds(this.routeLayer.getBounds());
-
+     this.fromMarker = L.marker([this.fromLocation.lat, this.fromLocation.lon], { icon: this.fromIcon }).addTo(this.map);
+      this.fromMarker.bindPopup('From: ' + this.fromLocation.display_name).openPopup();
+       this.toMarker = L.marker([this.toLocation.lat, this.toLocation.lon], { icon: this.toIcon }).addTo(this.map);
+      this.toMarker.bindPopup('To: ' + this.toLocation.display_name).openPopup();
         this.routeInfo = {
           distance: route.distance / 1000,
           duration: route.duration ,
@@ -130,19 +141,18 @@ toSubject:Subject<any> = new  Subject();
   }
 
   selectFromPlace(type:'from' | 'to' , selectedPlace:any){
- 
+  
   if(type == 'from'){
     this.fromLocation = selectedPlace;
     this.fromSuggestions = [];
-      this.fromMarker = L.marker([selectedPlace.lat, selectedPlace.lon], { icon: this.fromIcon }).addTo(this.map);
-      this.fromMarker.bindPopup('From: ' + selectedPlace.display_name).openPopup();
+     
     // this.map.setView([selectedPlace.lat, selectedPlace.lon], 13);
     // L.marker([selectedPlace.lat, selectedPlace.lon]).addTo(this.map).bindPopup('From').openPopup();
   }else{
     this.toLocation = selectedPlace;
     this.toSuggestions = [];
-     this.toMarker = L.marker([selectedPlace.lat, selectedPlace.lon], { icon: this.toIcon }).addTo(this.map);
-      this.toMarker.bindPopup('To: ' + selectedPlace.display_name).openPopup();
+    //  this.toMarker = L.marker([selectedPlace.lat, selectedPlace.lon], { icon: this.toIcon }).addTo(this.map);
+    //   this.toMarker.bindPopup('To: ' + selectedPlace.display_name).openPopup();
     // this.map.setView([selectedPlace.lat, selectedPlace.lon], 13);
     // L.marker([selectedPlace.lat, selectedPlace.lon]).addTo(this.map).bindPopup('To').openPopup();
 
@@ -158,8 +168,8 @@ toSubject:Subject<any> = new  Subject();
     this.routeInfo = undefined
     this. fromSuggestions= [];
   this.toSuggestions = [];
-  this.fromLocation = undefined;
-  this.toLocation = undefined;
+  // this.fromLocation = undefined;
+  // this.toLocation = undefined;
   // Remove markers
 if (this.fromMarker) {
   this.fromMarker.remove();

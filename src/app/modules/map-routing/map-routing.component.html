@@ -65,11 +65,41 @@
         </button>
       </div>
     }
+   @if (routeInfo) {
+  <div
+    class="bg-gradient-to-r from-blue-600 to-blue-400 text-white p-5 rounded-2xl shadow-lg max-w-md mx-auto mt-4 animate-fade-in"
+  >
+    <h2 class="text-2xl font-semibold mb-3 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h8M12 17v4M4 10h16l-1.5 9h-13L4 10zM2 10h20M12 2v4m0 4v2" />
+      </svg>
+      Route Details
+    </h2>
 
-    <div class="bg-gray-400">
-        <h2>Route Info</h2>
-        <div>{{routeInfo?.duration | formatDuration }}</div>
+    <div class="space-y-2">
+      <div class="flex items-center justify-between bg-white/20 p-3 rounded-lg">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-300" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm.5-13h-1v6l5 3 .5-.866-4.5-2.634V7Z" />
+          </svg>
+          <span class="font-medium">Distance:</span>
+        </div>
+        <span class="font-semibold text-lg">{{ routeInfo?.distance | kmFormater }}</span>
+      </div>
+
+      <div class="flex items-center justify-between bg-white/20 p-3 rounded-lg">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-300" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20Zm0-18a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm-.5 4h1v5.5l4 2.5-.5.866L11.5 13V8Z" />
+          </svg>
+          <span class="font-medium">Approx Time:</span>
+        </div>
+        <span class="font-semibold text-lg">{{ routeInfo?.duration | formatDuration }}</span>
+      </div>
     </div>
+  </div>
+}
+
   </div>
 
   <!-- Map container -->
