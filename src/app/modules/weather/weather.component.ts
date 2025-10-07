@@ -72,14 +72,10 @@ export class WeatherComponent {
           return of(null);
         }),
         tap(() => {
-         
             this.loading = false
-         
         })
       )
-      .subscribe({next:()=>{
-     
-      },
+      .subscribe({next:()=>{ },
     error:(err)=>{
       this.error = true
       this.loading = false;
