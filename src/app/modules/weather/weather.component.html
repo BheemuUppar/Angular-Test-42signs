@@ -1,1 +1,86 @@
-<p>weather works!</p>
+<!-- <input type="text" class="border rounded p-1" placeholder="change location" (input)="onSearchChange($event)">
+
+<h2>location : {{currentCity}}</h2>
+
+
+<h2>current weather</h2>
+<pre>{{currentWeather | json}}</pre>
+
+<h2> forecast for next 4 days</h2>
+
+<pre> {{forecastWeather | json}} </pre> -->
+
+<div *ngIf="loading" class="loader bg-blue-500 text-white p-2 rounded text-center">
+    Loading weather data...
+  </div>
+ <!-- Error with Retry Icon -->
+    <div *ngIf="error" class="flex items-center bg-yellow-400 text-black p-2 rounded">
+      <span class="mr-2">Failed to fetch current weather</span>
+      <button 
+        (click)="retryWeather()" 
+        class="bg-yellow-600 p-2 rounded hover:bg-yellow-700 transition"
+        aria-label="Retry"
+      >
+        🔄
+      </button>
+    </div>
+
+<div class="p-6 max-w-2xl mx-auto">
+
+  <!-- Search Box -->
+  <div class="flex items-center gap-2 mb-6">
+    <input
+      type="text"
+      placeholder="Search city..."
+      (input)="onSearchChange($event)"
+      class="border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+  </div>
+
+  @if(currentWeather){
+
+      <!--  Current City -->
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">
+        🌆 {{ currentCity }}
+      </h2>
+    
+      <!--  Current Weather Card -->
+      <div
+        class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-2xl p-6 flex items-center justify-between shadow-lg mb-8"
+      >
+        <div>
+          <h3 class="text-xl font-semibold mb-1">Current Weather</h3>
+          <p class="text-sm opacity-80">{{ currentWeather.description | titlecase }}</p>
+          <p class="text-4xl font-bold mt-2">{{ currentWeather.temp }}°C</p>
+          <p class="text-sm mt-1">Feels like: {{ currentWeather.feels_like }}°C</p>
+          <p class="text-xs mt-2">🌍 {{ currentWeather.city }}, {{ currentWeather.country }}</p>
+        </div>
+        <div>
+          <img
+            [src]="currentWeather.icon"
+            alt="weather icon"
+            class="w-20 h-20"
+          />
+        </div>
+      </div>
+    
+      <!-- 🌦 Forecast Section -->
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">Average temp for next 4 days</h3>
+    
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        @for (day of forecastWeather; track day.date) {
+          <div
+            class="bg-white rounded-xl shadow p-4 text-center hover:scale-105 transition-transform duration-200 border"
+          >
+            <p class="text-gray-600 font-medium">{{ day.date | date: 'MMM d' }}</p>
+            <p class="text-2xl font-bold text-blue-600 mt-2">{{ day.avgTemp }}°C</p>
+          </div>
+        }
+      </div>
+  }
+
+</div>
+
+  
+
+  
