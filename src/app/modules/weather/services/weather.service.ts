@@ -7,11 +7,9 @@ import { environment } from '../../../../environments/environment.development';
   providedIn: 'root'
 })
 export class WeatherService {
-  // geoUrl = 'http://api.openweathermap.org/geo/1.0/direct';
-  // forcastUrl = 'https://api.openweathermap.org/data/3.0/onecall';
 
-  weather = 'https://api.openweathermap.org/data/2.5/weather'
-  forecast = 'https://api.openweathermap.org/data/2.5/forecast';
+  weather = environment.weather;
+  forecast = environment.forecast;
 
 
 
