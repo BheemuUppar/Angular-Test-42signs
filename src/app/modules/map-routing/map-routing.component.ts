@@ -115,13 +115,13 @@ toSubject:Subject<any> = new  Subject();
        this.toMarker = L.marker([this.toLocation.lat, this.toLocation.lon], { icon: this.toIcon }).addTo(this.map);
       this.toMarker.bindPopup('To: ' + this.toLocation.display_name).openPopup();
         this.routeInfo = {
-          distance: route.distance / 1000,
+          distance: route.distance ,
           duration: route.duration ,
         };
         console.log(this.routeInfo)
     },
     error:(err)=>{
-
+      
     }
    })
   }

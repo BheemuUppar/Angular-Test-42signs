@@ -5,6 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FormatkmPipe implements PipeTransform {
   transform(value: number): string {
     if (!value || value <= 0) return '0 Km';
-   return Math.floor(value)+ 'Km'
+   return Math.floor(value / 1000)+ 'Km'
   }
 }
