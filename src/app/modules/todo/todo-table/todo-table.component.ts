@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TodoDetailsComponent } from '../todo-details/todo-details.component';
 import { TodoFormComponent } from '../todo-form/todo-form.component';
 import { TodoService } from '../services/todo.service';
+import { SnackbarService } from '../../../shared/services/snackbar.service';
 @Component({
   selector: 'app-todo-table',
   imports: [CommonModule, 
@@ -24,7 +25,8 @@ import { TodoService } from '../services/todo.service';
     MatIconModule,
     ReactiveFormsModule],
   templateUrl: './todo-table.component.html',
-  styleUrl: './todo-table.component.css'
+  styleUrl: './todo-table.component.css',
+  providers:[SnackbarService]
 })
 export class TodoTableComponent implements OnChanges, OnInit {
   @Input() todos: Todo[] = []
@@ -35,7 +37,7 @@ export class TodoTableComponent implements OnChanges, OnInit {
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
 
-  constructor(private dialog: MatDialog, private todoService:TodoService){
+  constructor(private dialog: MatDialog, private todoService:TodoService, private snackbarService:SnackbarService){
 
   }
   ngOnInit(): void {
@@ -52,7 +54,7 @@ this.dataSource.paginator = this.paginator;
 
   onSearch(event:any){
     this.searchSubject.next(event.target.value)
-    console.log('eeee' , event)
+    // console.log('eeee' , event)
   }
 
   
@@ -76,7 +78,7 @@ this.dataSource.paginator = this.paginator;
   addTodo(event:Event) {
     event.stopPropagation();
     event.preventDefault();
-    console.log("hel;llllllllllo ")
+    // console.log("hel;llllllllllo ")
     const dialogRef = this.dialog.open(TodoFormComponent, {
     width: '400px',
     data: null, // No data for adding
@@ -86,7 +88,8 @@ this.dataSource.paginator = this.paginator;
     if (result) {
       console.log('New Todo:', result);
       this.todoService.addTodo(result).subscribe((res)=>{
-          alert('todo added success')
+          // alert('todo added success')
+          this.snackbarService.success('Todo added successfully!')
           this.todoService.todoChange.next(true)
       })
     }
@@ -105,7 +108,8 @@ editTodo(event :Event, row: Todo) {
     if (result) {
       // console.log('Updated Todo:', result);
        this.todoService.updateTodo(result).subscribe((res)=>{
-          alert('todo updated success')
+          // alert('todo updated success')
+           this.snackbarService.success('Todo updated successfully!')
           this.todoService.todoChange.next(true)
       })
       

@@ -4,17 +4,19 @@ import { Todo } from './interfaces/todo';
 import { CommonModule } from '@angular/common';
 import { TodoTableComponent } from './todo-table/todo-table.component';
 import { takeUntil } from 'rxjs';
+import { SnackbarService } from '../../shared/services/snackbar.service';
 
 @Component({
   selector: 'app-todo',
-  imports: [CommonModule, TodoTableComponent],
+  imports: [CommonModule, TodoTableComponent, ],
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.css'
+  styleUrl: './todo.component.css',
+  providers:[SnackbarService]
 })
 export class TodoComponent implements OnInit, OnDestroy {
  todos: Todo[] = [];
 
- constructor(private todoService:TodoService){
+ constructor(private todoService:TodoService, private snackbarService:SnackbarService){
 
  }
   ngOnDestroy(): void {
@@ -28,7 +30,8 @@ export class TodoComponent implements OnInit, OnDestroy {
       this.fetchTodos()
     },
     error:()=>{
-      alert('failed to fetch Todos, try after some time')
+      // alert('failed to fetch Todos, try after some time')
+      this.snackbarService.warning('failed to fetch Todos, try after some time')
     }
    })
  }
