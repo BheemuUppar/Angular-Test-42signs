@@ -10,12 +10,9 @@ import { AuthService } from './core/services/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'angular-test';
   isLoginPage: boolean = false;
   constructor(private authService:AuthService, private router:Router){
    this.router.events.subscribe(event => {
-      
-        console.log(this.router.url)
         if(this.router.url.endsWith('/login')){
             this.isLoginPage = true
         }else{
@@ -23,7 +20,7 @@ export class AppComponent {
         }
     });
   }
-   sidebarOpen = true;
+  sidebarOpen = true;
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
