@@ -10,7 +10,7 @@ import { SnackbarService } from '../../shared/services/snackbar.service';
   imports:[CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  providers:[AuthService, SnackbarService]
+  // providers:[AuthService, SnackbarService]
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -28,7 +28,10 @@ export class LoginComponent {
   }
 
   onSubmit() {
-      console.log(this.loginForm.value);
+      if(this.loginForm.invalid){
+        this.snackbarService.error("Enter valid credential to proceed")
+return
+      }
       this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe({
         next:(res)=>{
             // alert('Login successful!');
@@ -39,7 +42,7 @@ export class LoginComponent {
             console.log(res)
         },
         error:(err)=>{
-   this.snackbarService.error(err.error.message)
+           this.snackbarService.error(err.error.message)
         }
       })
     
